@@ -1,0 +1,370 @@
+/* PandyBot Injected Styles */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+:root {
+  --pb-bg: #111318;
+  --pb-surface: #1a1d24;
+  --pb-surface2: #22262f;
+  --pb-border: rgba(255,255,255,0.07);
+  --pb-text: #e8eaf0;
+  --pb-muted: #7a7f8e;
+  --pb-accent: #00a0ee;
+  --pb-accent-glow: rgba(0, 160, 238, 0.25);
+  --pb-discord: #5865F2;
+  --pb-discord-hover: #4752c4;
+  --pb-success: #23d18b;
+  --pb-error: #f28779;
+  --pb-radius: 14px;
+  --pb-font: 'DM Sans', system-ui, sans-serif;
+}
+
+#pandybot-root {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 2147483647;
+  font-family: var(--pb-font);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--pb-text);
+}
+
+/* ─── FAB ─────────────────────────────────────────────────────────────────── */
+#pandybot-fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--pb-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,160,238,0.4), 0 2px 8px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  user-select: none;
+}
+
+#pandybot-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(0,160,238,0.55), 0 2px 12px rgba(0,0,0,0.5);
+}
+
+#pandybot-fab:active {
+  transform: scale(0.95);
+}
+
+#pandybot-fab svg {
+  width: 24px;
+  height: 24px;
+}
+
+#pandybot-fab.pandybot-fab-active {
+  background: var(--pb-surface2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+#pandybot-fab.pandybot-fab-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--pb-accent);
+  animation: pandybot-pulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pandybot-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.35); }
+}
+
+/* ─── Panel ───────────────────────────────────────────────────────────────── */
+#pandybot-panel {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 300px;
+  background: var(--pb-bg);
+  border: 1px solid var(--pb-border);
+  border-radius: var(--pb-radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  overflow: hidden;
+  transform-origin: bottom right;
+}
+
+.pandybot-hidden {
+  display: none !important;
+}
+
+.pandybot-visible {
+  display: block !important;
+  animation: pandybot-reveal 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pandybot-reveal {
+  from { opacity: 0; transform: scale(0.88) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+#pandybot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--pb-border);
+  background: var(--pb-surface);
+}
+
+#pandybot-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--pb-accent);
+  letter-spacing: 0.01em;
+}
+
+#pandybot-close {
+  background: none;
+  border: none;
+  color: var(--pb-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+
+#pandybot-close:hover {
+  color: var(--pb-text);
+  background: var(--pb-surface2);
+}
+
+/* ─── Now Playing ─────────────────────────────────────────────────────────── */
+#pandybot-now-playing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--pb-surface);
+  border-bottom: 1px solid var(--pb-border);
+}
+
+#pandybot-art-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--pb-surface2);
+  position: relative;
+}
+
+#pandybot-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+#pandybot-art-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--pb-muted);
+  background: var(--pb-surface2);
+}
+
+#pandybot-song-info {
+  flex: 1;
+  min-width: 0;
+}
+
+#pandybot-title {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--pb-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#pandybot-artist {
+  font-size: 12px;
+  color: var(--pb-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+#pandybot-album {
+  font-size: 11px;
+  color: var(--pb-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ─── Actions ─────────────────────────────────────────────────────────────── */
+#pandybot-actions {
+  padding: 12px 14px;
+  background: var(--pb-surface);
+  border-bottom: 1px solid var(--pb-border);
+}
+
+.pandybot-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--pb-font);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.pandybot-btn-primary {
+  background: var(--pb-discord);
+  color: white;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(88,101,242,0.3);
+}
+
+.pandybot-btn-primary:hover {
+  background: var(--pb-discord-hover);
+  box-shadow: 0 4px 16px rgba(88,101,242,0.45);
+  transform: translateY(-1px);
+}
+
+.pandybot-btn-primary:active {
+  transform: translateY(0);
+}
+
+.pandybot-btn-shared {
+  background: var(--pb-success) !important;
+  box-shadow: 0 2px 10px rgba(35, 209, 139, 0.3) !important;
+}
+
+.pandybot-btn-shared:hover {
+  background: #1db57a !important;
+}
+
+.pandybot-btn-secondary {
+  background: var(--pb-surface2);
+  color: var(--pb-text);
+  border: 1px solid var(--pb-border);
+  width: 100%;
+}
+
+.pandybot-btn-secondary:hover {
+  background: var(--pb-accent);
+  border-color: var(--pb-accent);
+  color: white;
+}
+
+/* ─── Divider ─────────────────────────────────────────────────────────────── */
+#pandybot-divider {
+  height: 1px;
+  background: var(--pb-border);
+}
+
+/* ─── Settings ────────────────────────────────────────────────────────────── */
+#pandybot-settings {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pandybot-setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pandybot-setting-row label {
+  font-size: 11.5px;
+  color: var(--pb-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+#pandybot-webhook {
+  background: var(--pb-surface2);
+  border: 1px solid var(--pb-border);
+  border-radius: 7px;
+  color: var(--pb-text);
+  font-family: 'DM Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  padding: 7px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+#pandybot-webhook:focus {
+  border-color: var(--pb-accent);
+  box-shadow: 0 0 0 2px var(--pb-accent-glow);
+}
+
+#pandybot-webhook::placeholder {
+  color: var(--pb-muted);
+  opacity: 0.5;
+}
+
+/* ─── Toast ───────────────────────────────────────────────────────────────── */
+#pandybot-toast {
+  margin: 0 14px 14px;
+  padding: 0;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.pandybot-toast-visible {
+  max-height: 40px !important;
+  padding: 7px 10px !important;
+  opacity: 1 !important;
+}
+
+.pandybot-toast-success {
+  background: rgba(35, 209, 139, 0.15);
+  color: var(--pb-success);
+  border: 1px solid rgba(35, 209, 139, 0.25);
+}
+
+.pandybot-toast-error {
+  background: rgba(242, 135, 121, 0.15);
+  color: var(--pb-error);
+  border: 1px solid rgba(242, 135, 121, 0.25);
+}
+
+.pandybot-toast-info {
+  background: rgba(0, 160, 238, 0.15);
+  color: var(--pb-accent);
+  border: 1px solid rgba(0, 160, 238, 0.25);
+}
